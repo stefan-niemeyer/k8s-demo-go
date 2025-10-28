@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	port       = getEnv("PORT", "3000")
+	port       = getEnv("PORT", "8080")
 	appVersion = getEnv("APP_VERSION", "v1")
 	appPicture = getEnv("APP_PICTURE", "v1.jpg")
 	unstable   = getEnv("UNSTABLE", "")

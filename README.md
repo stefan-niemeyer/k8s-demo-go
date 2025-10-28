@@ -1,5 +1,5 @@
-# k8s-demo
-This repository contains a simple Node.js application that can be used to demonstrate some basic concepts of Kubernetes.
+# k8s-demo-go
+This repository contains a simple Go application that can be used to demonstrate some basic concepts of Kubernetes.
 
 There are different versions of the application that can be used to demonstrate the following concepts:
 * Rolling Updates
@@ -15,7 +15,7 @@ For this purpose, there are several versions. The images have the version name a
 * canary
 * experimental (set health automatically to false after 30s)
 
-The complete Image name is , e.g. `ghcr.io/stefan-niemeyer/k8s-demo/k8s-demo:v1`.
+The complete Image name is , e.g. `ghcr.io/stefan-niemeyer/k8s-demo-go/k8s-demo-go:v1`.
 
 # Endpoints
 | Method | Path            | Description                                                                                                                                                                |
@@ -32,7 +32,7 @@ The complete Image name is , e.g. `ghcr.io/stefan-niemeyer/k8s-demo/k8s-demo:v1`
 
 ### App State
 ```shell
-$ curl -X GET -w " - > %{response_code}\n" http://localhost:3000/state
+$ curl -X GET -w " - > %{response_code}\n" http://localhost:8080/state
 {"host":"localhost","method":"GET","path":"/state","version":"v1","totalRequests":1,"readyState":true,"healthState":true} - > 200
 ```
 
@@ -40,16 +40,16 @@ $ curl -X GET -w " - > %{response_code}\n" http://localhost:3000/state
 The examples use the `/ready` endpoint. The `/health` endpoint works the same way.
 
 ```shell
-$ curl -X GET -w " - > %{response_code}\n" http://localhost:3000/ready
+$ curl -X GET -w " - > %{response_code}\n" http://localhost:8080/ready
 {"state":true} - > 200
 
-curl -X PUT -H "Content-Type: application/json" -d '{"state": false}' -w " - > %{response_code}\n" http://localhost:3000/ready
+curl -X PUT -H "Content-Type: application/json" -d '{"state": false}' -w " - > %{response_code}\n" http://localhost:8080/ready
 {"host":"localhost","method":"PUT","path":"/ready","version":"v1","totalRequests":0,"readyState":false,"healthState":true} - > 200
 
-$ curl -X GET -w " - > %{response_code}\n" http://localhost:3000/ready
+$ curl -X GET -w " - > %{response_code}\n" http://localhost:8080/ready
 {"state":false} - > 503
 
-$ curl -X PUT -H "Content-Type: application/json" -d '{"state": true}' -w " - > %{response_code}\n" http://localhost:3000/ready
+$ curl -X PUT -H "Content-Type: application/json" -d '{"state": true}' -w " - > %{response_code}\n" http://localhost:8080/ready
 {"host":"localhost","method":"PUT","path":"/ready","version":"v1","totalRequests":0,"readyState":true,"healthState":true} - > 200
 ```
 
