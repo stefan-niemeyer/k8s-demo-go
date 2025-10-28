@@ -1,0 +1,63 @@
+name: Docker Image CI
+on: [ push ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: publish-v1
+        uses: versicherungskammer/multi-platform-docker-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          email: auto
+          build-args: "APP_VERSION=v1 APP_PICTURE=v1.jpg"
+          additional-tags: "v1"
+          auto-tags: branch-name
+      - name: publish-v2
+        uses: versicherungskammer/multi-platform-docker-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          email: auto
+          build-args: "APP_VERSION=v2 APP_PICTURE=v2.jpg"
+          additional-tags: "v2"
+          auto-tags: branch-name
+      - name: publish-v3
+        uses: versicherungskammer/multi-platform-docker-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          email: auto
+          build-args: "APP_VERSION=v3 APP_PICTURE=v3.jpg"
+          additional-tags: "v3"
+          auto-tags: branch-name
+      - name: publish-experimental
+        uses: versicherungskammer/multi-platform-docker-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          email: auto
+          build-args: "APP_VERSION=v3 APP_PICTURE=v3.jpg UNSTABLE=30"
+          additional-tags: "experimental"
+          auto-tags: branch-name
+      - name: publish-blue
+        uses: versicherungskammer/multi-platform-docker-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          email: auto
+          build-args: "APP_VERSION=blue APP_PICTURE=blue.jpg"
+          additional-tags: "blue"
+          auto-tags: branch-name
+      - name: publish-green
+        uses: versicherungskammer/multi-platform-docker-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          email: auto
+          build-args: "APP_VERSION=green APP_PICTURE=green.jpg"
+          additional-tags: "green"
+          auto-tags: branch-name
+      - name: publish-canary
+        uses: versicherungskammer/multi-platform-docker-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          email: auto
+          build-args: "APP_VERSION=canary APP_PICTURE=canary.jpg"
+          additional-tags: "canary"
+          auto-tags: branch-name
