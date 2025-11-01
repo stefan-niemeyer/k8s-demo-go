@@ -4,8 +4,10 @@ WORKDIR /src
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o app
 
-# Final Stage: minimal "FROM scratch"
-FROM scratch
+# Final Stage: minimal
+FROM alpine:latest
+RUN apk add --no-cache curl
+
 WORKDIR /
 COPY --from=builder /src/app /app
 COPY images/ images/
