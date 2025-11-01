@@ -6,7 +6,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o app
 
 # Final Stage: minimal
 FROM alpine:latest
-RUN apk add --no-cache curl
+RUN apk add --no-cache bash curl
 
 WORKDIR /
 COPY --from=builder /src/app /app
