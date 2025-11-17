@@ -14,9 +14,9 @@ RUN if [ "$TARGETARCH" = "amd64" ]; then \
       curl -LO "curl -L -s https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/$TARGETARCH/kubectl" ; \
     else \
       curl -LO "curl -L -s https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl" ; \
-    fi ; \
-  && chmod +x kubectl \
-  && mv kubectl /usr/local/bin/kubectl
+    fi
+RUN chmod +x kubectl \
+    && mv kubectl /usr/local/bin/kubectl
 
 WORKDIR /
 COPY --from=builder /src/app /app
