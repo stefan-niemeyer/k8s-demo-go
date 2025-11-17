@@ -11,7 +11,7 @@ RUN apk add --no-cache bash curl
 # download kubectl, make it executable and move it to a standard path
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
   && chmod +x kubectl \
-  && mv kubectl /usr/local/bin/kubectl \
+  && mv kubectl /usr/local/bin/kubectl
 
 WORKDIR /
 COPY --from=builder /src/app /app
