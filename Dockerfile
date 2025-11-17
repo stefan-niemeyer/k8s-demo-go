@@ -8,17 +8,6 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o app
 FROM alpine:latest
 RUN apk add --no-cache bash curl
 
-# download kubectl, make it executable and move it to a standard path
-ARG TARGETARCH
-ENV TARGETARCH=$TARGETARCH
-RUN if [ "$TARGETARCH" = "amd64" ]; then \
-      curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl ; \
-    else \
-      curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl ; \
-    fi
-RUN chmod +x kubectl \
-    && mv kubectl /usr/local/bin/kubectl
-
 WORKDIR /
 COPY --from=builder /src/app /app
 COPY images/ images/
