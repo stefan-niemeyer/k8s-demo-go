@@ -9,7 +9,8 @@ FROM alpine:latest
 RUN apk add --no-cache bash curl
 
 # download kubectl, make it executable and move it to a standard path
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+ARG ARCH
+RUN curl -LO "curl -L -s https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/${ARCH}/kubectl" \
   && chmod +x kubectl \
   && mv kubectl /usr/local/bin/kubectl
 
